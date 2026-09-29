@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar — Caderneta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/estilo.css">
+
+  <script type="module" src="scripts/login.js" defer></script>
+</head>
+<body>
+  <div class="pagina">
+
+    <header class="lateral">
+      <p class="marca">Caderneta</p>
+      <p class="frase">Suas anotações, guardadas na sua conta.</p>
+    </header>
+
+    <main class="papel">
+      <div class="conteudo">
+        <h1 class="titulo">Entrar</h1>
+        <p class="apoio">Use o e-mail e a senha da sua conta.</p>
+
+        <!--
+          Quando treinar o backend, mostre erros aqui. Exemplo:
+          <p class="mensagem-erro" role="alert">E-mail ou senha incorretos.</p>
+        -->
+
+        <!-- Troque o action pela rota do seu backend, ex.: /api/login -->
+        <form class="formulario" id="formulario">
+          <div class="linhas">
+            <div class="campo">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email"
+                     autocomplete="email" placeholder="voce@exemplo.com" required>
+            </div>
+
+            <div class="campo">
+              <label for="senha">Senha</label>
+              <input type="password" id="senha" name="senha"
+                     autocomplete="current-password" required>
+            </div>
+          </div>
+
+          <button class="botao" type="submit">Entrar</button>
+        </form>
+
+        <p class="troca-de-pagina">
+          Ainda não tem conta? <a href="cadastro.html">Criar conta</a>
+        </p>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>

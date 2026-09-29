@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criar conta — Caderneta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/estilo.css">
+  <script type="module" src="scripts/register.js" defer></script>
+</head>
+<body>
+  <div class="pagina">
+
+    <header class="lateral">
+      <p class="marca">Caderneta</p>
+      <p class="frase">Crie sua conta e comece a anotar.</p>
+    </header>
+
+    <main class="papel">
+      <div class="conteudo">
+        <h1 class="titulo">Criar conta</h1>
+        <p class="apoio">Leva menos de um minuto.</p>
+
+        <!--
+          Quando treinar o backend, mostre erros aqui. Exemplo:
+          <p class="mensagem-erro" role="alert">Este e-mail já está em uso.</p>
+        -->
+
+        <!-- Troque o action pela rota do seu backend, ex.: /api/cadastro -->
+        <form class="formulario" id="formCadastro">
+          <div class="linhas">
+            <div class="campo">
+              <label for="nome">Nome</label>
+              <input type="text" id="nome" name="nome"
+                     autocomplete="name" placeholder="Maria Souza" required>
+            </div>
+
+            <div class="campo">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" name="email"
+                     autocomplete="email" placeholder="voce@exemplo.com" required>
+            </div>
+
+            <div class="campo">
+              <label for="senha">Senha</label>
+              <input type="password" id="senha" name="senha"
+                     autocomplete="new-password" minlength="8"
+                     aria-describedby="dica-senha" required>
+              <span class="dica" id="dica-senha">Mínimo de 8 caracteres.</span>
+            </div>
+
+            <div class="campo">
+              <label for="confirmar_senha">Repita a senha</label>
+              <input type="password" id="confirmar_senha" name="confirmar_senha"
+                     autocomplete="new-password" minlength="8" required>
+            </div>
+          </div>
+
+          <button class="botao" type="submit">Criar conta</button>
+        </form>
+
+        <p class="troca-de-pagina">
+          Já tem conta? <a href="login.html">Entrar</a>
+        </p>
+      </div>
+    </main>
+
+  </div>
+</body>
+</html>

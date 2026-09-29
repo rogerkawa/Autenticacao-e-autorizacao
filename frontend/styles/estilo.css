@@ -1,0 +1,537 @@
+/* ==========================================================
+   Caderneta — estilo compartilhado por login.html e cadastro.html
+   Conceito: um caderno de espiral aberto sobre a mesa.
+   Esquerda: capa azul-tinta com um bilhete amarelo.
+   Direita: folha pautada com margem vermelha e campos brancos.
+   Detalhe de destaque: título marcado com marca-texto amarelo
+   e botão com sombra sólida amarela.
+   ========================================================== */
+
+:root {
+  color-scheme: light dark;
+
+  /* cores — tema claro */
+  --cor-mesa: #dce4ec;
+  --cor-mesa-pontos: rgba(22, 50, 79, 0.12);
+  --cor-papel: #fbfcfd;
+  --cor-pauta: #e4eaf0;
+  --cor-tinta: #16324f;
+  --cor-grafite: #2b3440;
+  --cor-apoio: #566170;
+  --cor-margem: #c8372d;
+
+  --cor-campo: #ffffff;
+  --cor-borda-campo: #7b8ca0;
+  --cor-borda-campo-hover: #4f6276;
+
+  --cor-marca-texto: #f7d64a;
+  --cor-marca-texto-titulo: #f7d64a;
+
+  --cor-lateral-fundo: #16324f;
+  --cor-lateral-texto: #f4f6f8;
+  --cor-lateral-suave: #c9d6e4;
+  --cor-lateral-grade: rgba(255, 255, 255, 0.07);
+
+  --cor-anel: #d5dce5;
+  --cor-nota: #f7d64a;
+  --cor-nota-linha: rgba(22, 50, 79, 0.22);
+
+  --cor-botao-fundo: #16324f;
+  --cor-botao-hover: #1d4168;
+  --cor-botao-texto: #ffffff;
+
+  --cor-erro-fundo: #fbeceb;
+  --cor-erro-texto: #7f1a14;
+
+  /* fontes */
+  --fonte-titulo: "Bricolage Grotesque", "Trebuchet MS", "Segoe UI", sans-serif;
+  --fonte-texto: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+
+  /* medidas */
+  --altura-pauta: 2rem;
+  --altura-campo: 3.25rem;
+  --raio-campo: 8px;
+  --raio-cartao: 20px;
+  --largura-formulario: 26rem;
+}
+
+/* cores — tema escuro (segue a preferência do sistema) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cor-mesa: #070d14;
+    --cor-mesa-pontos: rgba(219, 231, 245, 0.07);
+    --cor-papel: #101b27;
+    --cor-pauta: #182636;
+    --cor-tinta: #dbe7f5;
+    --cor-grafite: #c3cfdb;
+    --cor-apoio: #93a1b1;
+    --cor-margem: #e0655c;
+
+    --cor-campo: #0a121b;
+    --cor-borda-campo: #5d7188;
+    --cor-borda-campo-hover: #8ea2b8;
+
+    --cor-marca-texto-titulo: rgba(247, 214, 74, 0.3);
+
+    --cor-lateral-fundo: #0c2238;
+    --cor-lateral-texto: #dbe7f5;
+    --cor-lateral-suave: #9fb0c3;
+    --cor-lateral-grade: rgba(255, 255, 255, 0.05);
+
+    --cor-anel: #8fa1b5;
+    --cor-nota-linha: rgba(12, 34, 56, 0.28);
+
+    --cor-botao-fundo: #dbe7f5;
+    --cor-botao-hover: #ffffff;
+    --cor-botao-texto: #0e1620;
+
+    --cor-erro-fundo: #3a1714;
+    --cor-erro-texto: #ffb4ad;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%; /* respeita o zoom de texto do usuário */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-texto);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--cor-grafite);
+  background-color: var(--cor-papel);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--cor-marca-texto);
+  color: #16324f;
+}
+
+/* ---------- estrutura da página (mobile primeiro) ---------- */
+
+.pagina {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--cor-papel);
+}
+
+/* capa azul com papel quadriculado discreto */
+.lateral {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.75rem 1.25rem 2.25rem;
+  overflow: hidden;
+  background-color: var(--cor-lateral-fundo);
+  background-image:
+    linear-gradient(var(--cor-lateral-grade) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cor-lateral-grade) 1px, transparent 1px);
+  background-size: 1.75rem 1.75rem;
+  color: var(--cor-lateral-texto);
+}
+
+.marca {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 9vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.frase {
+  position: relative;
+  margin: 0;
+  max-width: 24ch;
+  color: var(--cor-lateral-suave);
+}
+
+/* bilhete amarelo colado na capa (só em telas largas) */
+.lateral::after {
+  content: "";
+  display: none;
+  position: absolute;
+  right: 2.25rem;
+  top: 40%;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 2px;
+  background-color: var(--cor-nota);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 1.7rem,
+    var(--cor-nota-linha) 1.7rem calc(1.7rem + 2px)
+  );
+  transform: rotate(5deg);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+}
+
+/* folha pautada com margem vermelha */
+.papel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.75rem 1.25rem 3rem 3.25rem;
+  background-color: var(--cor-papel);
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(var(--altura-pauta) - 1px),
+    var(--cor-pauta) calc(var(--altura-pauta) - 1px)
+  );
+  background-size: 100% var(--altura-pauta);
+}
+
+.papel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 2.1rem;
+  width: 2px;
+  background: var(--cor-margem);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* argolas da espiral na emenda entre a capa e a folha */
+.papel::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -0.9rem;
+  left: 0;
+  right: 0;
+  height: 1.8rem;
+  background-image: radial-gradient(
+    ellipse 0.3rem 0.9rem at 50% 50%,
+    var(--cor-anel) 0 96%,
+    transparent 100%
+  );
+  background-size: 1.9rem 1.8rem;
+  background-repeat: repeat-x;
+  background-position: 0.5rem 0;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+}
+
+.conteudo {
+  width: 100%;
+  max-width: var(--largura-formulario);
+  animation: entrar 0.5s ease-out both;
+}
+
+/* ---------- textos ---------- */
+
+/* título marcado com marca-texto */
+.titulo {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 0.5rem -0.15em;
+  padding: 0 0.15em;
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--cor-tinta);
+  background-image: linear-gradient(
+    to bottom,
+    transparent 58%,
+    var(--cor-marca-texto-titulo) 58% 90%,
+    transparent 90%
+  );
+}
+
+.apoio {
+  margin: 0 0 1.75rem;
+  color: var(--cor-apoio);
+}
+
+/* ---------- formulário ---------- */
+
+.linhas {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.campo {
+  display: block;
+}
+
+.campo label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cor-grafite);
+}
+
+.campo input {
+  display: block;
+  width: 100%;
+  height: var(--altura-campo);
+  margin: 0;
+  padding: 0 1rem;
+  border: 1.5px solid var(--cor-borda-campo);
+  border-radius: var(--raio-campo);
+  background: var(--cor-campo);
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--cor-tinta);
+  caret-color: var(--cor-margem);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.campo input::placeholder {
+  color: var(--cor-apoio);
+  opacity: 0.85;
+}
+
+.campo input:hover {
+  border-color: var(--cor-borda-campo-hover);
+}
+
+.campo input:focus-visible {
+  outline: 3px solid var(--cor-tinta);
+  outline-offset: 2px;
+  border-color: var(--cor-tinta);
+}
+
+/* campo inválido: borda vermelha mais grossa */
+.campo input:user-invalid {
+  border-color: var(--cor-margem);
+  box-shadow: inset 0 0 0 1px var(--cor-margem);
+}
+
+/* dica logo abaixo do campo */
+.dica {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--cor-apoio);
+}
+
+/* mensagem de erro (o backend pode inserir isso depois) */
+.mensagem-erro {
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--cor-margem);
+  border-radius: 0 var(--raio-campo) var(--raio-campo) 0;
+  background: var(--cor-erro-fundo);
+  color: var(--cor-erro-texto);
+  font-size: 0.95rem;
+}
+
+/* botão com sombra sólida amarela: afunda ao clicar */
+.botao {
+  display: block;
+  width: 100%;
+  height: 3.5rem;
+  margin-top: 2rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--cor-botao-fundo);
+  color: var(--cor-botao-texto);
+  font-family: var(--fonte-texto);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--cor-marca-texto);
+  transition:
+    background-color 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.1s ease;
+}
+
+.botao:hover {
+  background: var(--cor-botao-hover);
+  box-shadow: 6px 6px 0 var(--cor-marca-texto);
+  transform: translate(-1px, -1px);
+}
+
+.botao:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 var(--cor-marca-texto);
+}
+
+.botao:focus-visible {
+  outline: 3px solid var(--cor-tinta);
+  outline-offset: 4px;
+}
+
+.botao:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.troca-de-pagina {
+  margin: 1.75rem 0 0;
+  color: var(--cor-apoio);
+}
+
+.troca-de-pagina a {
+  display: inline-block;
+  padding: 0.5rem 0;
+  color: var(--cor-tinta);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--cor-margem);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.25em;
+  transition: text-underline-offset 0.15s ease;
+}
+
+.troca-de-pagina a:hover {
+  text-underline-offset: 0.4em;
+}
+
+.troca-de-pagina a:focus-visible {
+  outline: 2px solid var(--cor-tinta);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---------- animação única de entrada ---------- */
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* ---------- telas médias ---------- */
+
+@media (min-width: 40rem) {
+  .lateral {
+    padding: 2.25rem 2.5rem 2.75rem;
+  }
+
+  .papel {
+    padding: 3.5rem 2.5rem 3.5rem 5.5rem;
+  }
+
+  .papel::before {
+    left: 4rem;
+  }
+}
+
+/* ---------- telas largas: caderno aberto sobre a mesa ---------- */
+
+@media (min-width: 56rem) {
+  body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 2.5rem;
+    background-color: var(--cor-mesa);
+    background-image: radial-gradient(
+      circle,
+      var(--cor-mesa-pontos) 1px,
+      transparent 1.5px
+    );
+    background-size: 22px 22px;
+  }
+
+  .pagina {
+    width: min(100%, 68rem);
+    min-height: 40rem;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    border-radius: var(--raio-cartao);
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.4) inset,
+      0 30px 60px -20px rgba(9, 24, 41, 0.45),
+      0 8px 20px rgba(9, 24, 41, 0.18);
+    animation: entrar 0.6s ease-out both;
+  }
+
+  .lateral {
+    justify-content: space-between;
+    padding: 3rem 2.5rem;
+    border-radius: var(--raio-cartao) 0 0 var(--raio-cartao);
+  }
+
+  .lateral::after {
+    display: block;
+  }
+
+  .frase {
+    font-size: 1.3rem;
+    line-height: 1.4;
+  }
+
+  .marca {
+    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+  }
+
+  .papel {
+    padding: 3.5rem 3rem 3.5rem 6.5rem;
+    border-radius: 0 var(--raio-cartao) var(--raio-cartao) 0;
+  }
+
+  .papel::before {
+    left: 4.75rem;
+  }
+
+  /* argolas passam para a emenda vertical */
+  .papel::after {
+    top: 0;
+    bottom: 0;
+    left: -0.9rem;
+    right: auto;
+    width: 1.8rem;
+    height: auto;
+    background-image: radial-gradient(
+      ellipse 0.9rem 0.3rem at 50% 50%,
+      var(--cor-anel) 0 96%,
+      transparent 100%
+    );
+    background-size: 1.8rem 1.9rem;
+    background-repeat: repeat-y;
+    background-position: 0 0.6rem;
+  }
+
+  /* o conteúdo já anima junto com o cartão */
+  .conteudo {
+    animation: none;
+  }
+}
+
+/* ---------- movimento reduzido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .conteudo,
+  .pagina {
+    animation: none;
+  }
+
+  .campo input,
+  .botao,
+  .troca-de-pagina a {
+    transition: none;
+  }
+
+  .botao:hover,
+  .botao:active {
+    transform: none;
+  }
+}
